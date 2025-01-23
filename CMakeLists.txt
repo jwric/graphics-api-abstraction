@@ -5,6 +5,10 @@ set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+# Options ============================================================================================
+option(BUILD_EXAMPLES "Build examples" ON)
+# ====================================================================================================
+
 add_library(
         ${PROJECT_NAME} STATIC
         include/graphicsAPI/common/Buffer.h
@@ -133,10 +137,15 @@ CPMAddPackage(
 #target_link_libraries(${PROJECT_NAME} PRIVATE assert)
 # =====================================================================================================
 
-# End dependencies =====================================================================================
+# End dependencies ====================================================================================
 
+# Examples ============================================================================================
+if (BUILD_EXAMPLES)
+    add_subdirectory(examples)
+endif ()
+# =====================================================================================================
 
-# Compile definitions ==================================================================================
+# Compile definitions =================================================================================
 if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     target_compile_definitions(${PROJECT_NAME} PRIVATE __DEBUG__)
 endif ()
